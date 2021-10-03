@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using S6_DPA_MVCjQUERYDatabaseFirst.Web.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,12 @@ namespace S6_DPA_MVCjQUERYDatabaseFirst.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Listado()
+        {
+            var customers = await CustomerRepo.GetCustomersAsync();
+            return PartialView(customers);
         }
     }
 }
