@@ -77,6 +77,45 @@
 </div>
 
 <script>
+
+
+    $("#btnGuardarCliente").click(function () {
+        let vIdCliente = $("#hidIdCliente").val();
+        let vNombre = $("#txtNombre").val();
+        let vApellido = $("#txtApellido").val();
+        let vPais = $("#txtPais").val();
+        let vCiudad = $("#txtCiudad").val();
+        let vTelefono = $("#txtTelefono").val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Grabar","Customer")',
+            data: {
+                idCliente: vIdCliente,
+                nombre: vNombre,
+                apellido: vApellido,
+                pais: vPais,
+                ciudad: vCiudad,
+                telefono: vTelefono
+            },
+            success: function (exito) {
+                if (exito) {
+                    alert("Se registró satisfactoriamente...");
+                    CargarListadoCliente();
+                    //$("#modalRegistroCliente").toggle();
+                } else {
+                    alert("Ocurrió un error en la transacción");
+                }
+
+
+            }
+        });
+
+
+
+    });
+
+
     $("#btnAgregarCliente").click(function () {
         $("#modalRegistroCliente").modal();
     });

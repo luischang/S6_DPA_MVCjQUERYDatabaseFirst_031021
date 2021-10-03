@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using S6_DPA_MVCjQUERYDatabaseFirst.Web.Models;
 using S6_DPA_MVCjQUERYDatabaseFirst.Web.Repository;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,31 @@ namespace S6_DPA_MVCjQUERYDatabaseFirst.Web.Controllers
             var customers = await CustomerRepo.GetCustomersAsync();
             return PartialView(customers);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Grabar(int idCliente, string nombre,
+            string apellido, string ciudad, string telefono, string pais)
+        {
+            var customer = new Customer()
+            {
+                FirstName = nombre,
+                LastName = apellido,
+                Country = pais,
+                Phone = telefono,
+                City = ciudad
+            };
+            bool exito = true;
+
+            if (idCliente == -1)
+                exito = await CustomerRepo.Insert(customer);
+            else {
+                customer.Id = idCliente;
+                exito = await CustomerRepo.Update(customer);
+            }
+
+            return Json(exito);
+        }
+
+
     }
 }
