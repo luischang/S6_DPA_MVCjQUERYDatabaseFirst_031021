@@ -14,6 +14,18 @@ namespace S6_DPA_MVCjQUERYDatabaseFirst.Web.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int idCliente)
+        {
+            bool exito = await CustomerRepo.Delete(idCliente);
+            return Json(exito);
+        }
+
+        public async Task<IActionResult> Obtener(int idCliente)
+        {
+            var customer = await CustomerRepo.GetCustomer(idCliente);
+            return Json(customer);
+        }
 
         public async Task<IActionResult> Listado()
         {
